@@ -6,6 +6,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import {sha256} from 'js-sha256';
     import * as THREE from 'three';
 
     export default {
@@ -21,9 +22,12 @@
                 distance: 500,
                 renderer: '',
                 scene: '',
+                menuScene: '',
                 camera: '',
 
-                playerCards: []
+                fetchedCards: [],
+                playerCards: [],
+                playerTeam: []
             };
         },
 
@@ -46,20 +50,39 @@
             ...mapActions('cards', ['fetchCard']),
 
             initThree() {
-                this.renderer = new THREE.WebGLRenderer({alpha: true});
+                this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: false});
                 this.renderer.setSize(this.canvasSize.width, this.canvasSize.width*9/16);
 
                 this.camera = new THREE.PerspectiveCamera(30, 16/9, 1, 10000);
+                // this.camera.position.x = this.distance;
+                // this.camera.position.y = this.distance;
                 this.camera.position.z = this.distance;
                 this.camera.lookAt(0, 0, 0);
 
                 this.scene = new THREE.Scene();
 
                 this.drawGrid();
-                this.drawCards();
+                this.fetchCards(6);
+                this.drawMenu();
                 this.animate();
 
                 this.$refs.canvas.appendChild(this.renderer.domElement);
+            },
+            drawMenu() {
+                const fontLoader = new THREE.FontLoader();
+                fontLoader.load('./fonts/helvetiker_bold.typeface.json', text => { 
+                    const textGeo = new THREE.TextGeometry('GO', {
+                        font: text,
+                        size: 20,
+                        height: 2,
+                        curveSegments: 12
+                    });
+                    const color = new THREE.Color(0xf54040);
+                    const textMaterial = new THREE.MeshBasicMaterial({color: color});
+                    const textNewGame = new THREE.Mesh(textGeo, textMaterial);
+                    this.scene.add(textNewGame);
+                    this.renderer.render(this.scene, this.camera);
+                });
             },
             drawGrid() {
                 const materialRed = new THREE.LineBasicMaterial({color: 0xff0000});
@@ -91,12 +114,13 @@
                 this.scene.add(lineZ);
                 this.renderer.render(this.scene, this.camera);
             },
-            async drawCards() {
+            async fetchCards(n) {
                 const geometry = new THREE.PlaneGeometry(45, 70, 5);
-                for (let i=0; i<5; i++) {
+                for (let i=0; i<n; i++) {
                     const response = await fetch(`https://api.jikan.moe/v3/character/${i+497}`);
                     const data = await response.json();
-                    this.playerCards.push(data);
+                    this.fetchedCards.push(data);
+                    this.fromFetchedCardsToPlayerCards(data);
 
                     const texture = new THREE.TextureLoader().load(data.image_url);
                     const material = new THREE.MeshBasicMaterial({map: texture});
@@ -107,6 +131,25 @@
 
                     this.renderer.render(this.scene, this.camera);
                 }
+            },
+            fromFetchedCardsToPlayerCards(data) {
+                const code = sha256.array(data.mal_id.toString());
+                const item = {
+                    id: data.mal_id,
+                    name: data.name,
+                    image: data.image_url,
+                    anime: data.animeography[0]?.name || 'unknown',
+                    hp: code[0],
+                    attack: code[1],
+                    defence: code[2],
+                    initiative: code[3]
+                };
+                this.playerCards.push(item);
+            },
+            async fetchCardFromID(id) {
+                const response = await fetch(`https://api.jikan.moe/v3/character/${id}`);
+                const data = await response.json();
+                this.fetchedCards.push(data);
             },
             animate() {
                 this.renderer.render(this.scene, this.camera);

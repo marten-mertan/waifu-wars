@@ -34,9 +34,9 @@ module.exports = {
      */
     head: {
         htmlAttrs: {
-            lang: 'ru',
+            lang: 'en',
         },
-        title: 'Todo App',
+        title: 'Waifu Wars',
         meta: [
             {charset: 'utf-8'},
             {
