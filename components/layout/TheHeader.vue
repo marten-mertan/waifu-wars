@@ -4,13 +4,19 @@
             <div class="header__title">
                 Waifu Wars
             </div>
+            <Menu />
         </div>
     </header>
 </template>
 
 <script>
+    import Menu from '~/components/menu';
+    
     export default {
         name: 'TheHeader',
+        components: {
+            Menu
+        },
     };
 </script>
 

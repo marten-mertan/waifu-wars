@@ -1,6 +1,7 @@
 <template>
     <div>
         <TheHeader />
+        <Menu />
 
         <main :class="$style.main">
             <nuxt />
@@ -13,11 +14,32 @@
 <script>
     import TheHeader from '~/components/layout/TheHeader';
     import TheFooter from '~/components/layout/TheFooter';
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         components: {
             TheHeader,
-            TheFooter,
+            TheFooter
+        },
+        data() {
+            return {
+            };
+        },
+        computed: {
+            ...mapGetters('cards', ['getState']),
+        },
+
+        mounted() {
+            this.fetchCards(5);
+        },
+
+        methods: {
+            ...mapActions('cards', ['fetchCards']),
+            async fetchCardFromID(id) {
+                const response = await fetch(`https://api.jikan.moe/v3/character/${id}`);
+                const data = await response.json();
+                this.fetchedCards.push(data);
+            },
         },
     };
 </script>

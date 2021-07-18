@@ -1,8 +1,8 @@
 {
-    "name": "StarterNuxtTemplate",
+    "name": "NuxtTemplate",
     "version": "1.0.0",
-    "description": "Made by SBolten",
-    "author": "SBolten",
+    "description": "Nuxt Template",
+    "author": "Mertan",
     "private": true,
     "scripts": {
         "dev": "nuxt -H 0.0.0.0",

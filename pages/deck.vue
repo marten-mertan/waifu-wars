@@ -1,17 +1,21 @@
 <template>
     <div :class="$style.home"
          class="page">
-        <Game />
+        <MyCards :my-cards="getState.playerCards" />
     </div>
 </template>
 
 <script>
-    import Game from '../components/game';
+    import MyCards from '~/components/my-cards';
+    import {mapGetters} from 'vuex';
 
     export default {
-        name: 'HomePage',
+        name: 'Deck',
         components: {
-            Game
+            MyCards
+        },
+        computed: {
+            ...mapGetters('cards', ['getState']),
         },
     };
 </script>
