@@ -1,17 +1,17 @@
 <template>
     <div :class="$style.home"
          class="page">
-        <Canvas />
+        <Game />
     </div>
 </template>
 
 <script>
-    import Canvas from '../components/canvas';
+    import Game from '../components/game';
 
     export default {
         name: 'HomePage',
         components: {
-            Canvas
+            Game
         },
     };
 </script>
@@ -20,6 +20,7 @@
     .home {
         display: flex;
         flex-direction: column;
-        margin: auto;
+        min-height: 100%;
+        width: 100%;
     }
 </style>

@@ -16,7 +16,7 @@
 
 <style lang="scss">
     .footer {
-        background: #f54040;
+        background: #1e1e1e;
 
         &-wrap {
             display: flex;

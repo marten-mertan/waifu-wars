@@ -24,9 +24,10 @@
 
 <style lang="scss" module>
     .main {
-        min-height: calc(100vh - #{$footer-h});
+        height: calc(100vh - #{$footer-h});
         display: flex;
         flex-direction: column;
+        justify-content: stretch;
         background: #1e1e1e;
     }
 </style>

@@ -21,7 +21,7 @@
         left: 0;
         z-index: 15;
         width: 100%;
-        background: #f54040;
+        background: #1e1e1e;
 
         &-wrap {
             display: flex;
