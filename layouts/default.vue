@@ -7,6 +7,7 @@
             <nuxt />
         </main>
 
+        <Hint />
         <TheFooter />
     </div>
 </template>
@@ -14,12 +15,14 @@
 <script>
     import TheHeader from '~/components/layout/TheHeader';
     import TheFooter from '~/components/layout/TheFooter';
+    import Hint from '~/components/hint';
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
         components: {
             TheHeader,
-            TheFooter
+            TheFooter,
+            Hint
         },
         data() {
             return {
@@ -39,7 +42,7 @@
                 const response = await fetch(`https://api.jikan.moe/v3/character/${id}`);
                 const data = await response.json();
                 this.fetchedCards.push(data);
-            },
+            }
         },
     };
 </script>

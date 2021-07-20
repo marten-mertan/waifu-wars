@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import Card from '../components/card';
+    import Card from '~/components/deck/card';
 
     export default {
         name: 'MyCards',

@@ -1,5 +1,7 @@
 <template>
-    <div class="card">
+    <div class="card"
+         @mouseenter="mouseEnter"
+         @mouseleave="mouseLeave">
         <div class="card-outer">
             <div class="card-inner">
                 <img :src="card.image" 
@@ -10,6 +12,8 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
+
     export default {
         components: {
           
@@ -33,6 +37,13 @@
         },
       
         methods: {
+            ...mapActions('cards', ['setHint']),
+            mouseEnter: function() {
+                this.setHint([this.card.name, this.card.anime]);
+            },
+            mouseLeave: function() {
+                this.setHint(['', '']);
+            }
 
         },
     };

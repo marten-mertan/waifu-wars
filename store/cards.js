@@ -3,11 +3,16 @@ import {sha256} from 'js-sha256';
 export const state = () => ({
     fetchedCards: [],
     playerCards: [],
-    playerTeam: []
+    playerTeam: [],
+    hint: {
+        head: '',
+        body: ''
+    }
 });
 
 export const getters = {
     getState: state => state,
+    getHint: state => state.hint,
 };
 
 export const actions = {
@@ -34,6 +39,9 @@ export const actions = {
         }
         commit('setFetchedCards', fetchedCards);
         commit('setPlayerCards', playerCards);
+    },
+    setHint({commit}, [hintHead, hintBody]) {
+        commit('setHint', [hintHead, hintBody]);
     }
 };
 
@@ -44,5 +52,9 @@ export const mutations = {
     setPlayerCards(state, data) {
         state.playerCards = data;
     },
+    setHint(state, [head, body]) {
+        state.hint.head = head;
+        state.hint.body = body;
+    }
     
 };

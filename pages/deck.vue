@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import MyCards from '~/components/my-cards';
+    import MyCards from '~/components/deck/my-cards';
     import {mapGetters} from 'vuex';
 
     export default {
