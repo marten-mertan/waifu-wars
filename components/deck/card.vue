@@ -107,8 +107,8 @@
             }
 
             img {
-                //user-select: none;
-                //pointer-events: none;
+                user-select: none;
+                pointer-events: none;
             }
         }
     }
