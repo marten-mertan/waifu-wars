@@ -1,6 +1,5 @@
 <template>
-    <div :class="$style.home"
-         class="page">
+    <div class="page deck">
         <MyCards :my-cards="getState.playerCards" />
     </div>
 </template>
@@ -20,8 +19,8 @@
     };
 </script>
 
-<style lang="scss" module>
-    .home {
+<style lang="scss">
+    .deck {
         display: flex;
         flex-direction: column;
         min-height: 100%;

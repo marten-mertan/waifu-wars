@@ -1,12 +1,11 @@
 <template>
-    <div ref="game"
-         class="game">
+    <div class="game">
     </div>
 </template>
 
 <script>
-
     export default {
+        name: 'Game',
         components: {
         },
     };

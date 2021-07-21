@@ -31,11 +31,9 @@
         computed: {
             ...mapGetters('cards', ['getState']),
         },
-
         mounted() {
             this.fetchCards(5);
         },
-
         methods: {
             ...mapActions('cards', ['fetchCards']),
             async fetchCardFromID(id) {

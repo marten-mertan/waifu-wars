@@ -39,7 +39,9 @@
         methods: {
             ...mapActions('cards', ['setHint']),
             mouseEnter: function() {
-                this.setHint([this.card.name, this.card.anime]);
+                const hintHead = this.card.name;
+                const hintBody = `<p>${this.card.anime}</p><p>hp: ${this.card.hp}</p><p>attack: ${this.card.attack}</p>`;
+                this.setHint([hintHead, hintBody]);
             },
             mouseLeave: function() {
                 this.setHint(['', '']);
@@ -105,8 +107,8 @@
             }
 
             img {
-                user-select: none;
-                pointer-events: none;
+                //user-select: none;
+                //pointer-events: none;
             }
         }
     }

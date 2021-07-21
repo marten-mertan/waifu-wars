@@ -1,11 +1,11 @@
 <template>
     <div class="hint"
          :class="{ active: getHint.head && getHint.body }">
-        <div class="hint-head">
-            {{ getHint.head }}
+        <div class="hint-head"
+             v-html="getHint.head">
         </div>
-        <div class="hint-body">
-            {{ getHint.body }}
+        <div class="hint-body"
+             v-html="getHint.body">
         </div>
     </div>
 </template>
@@ -69,6 +69,11 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 4px;
+
+            p {
+                color: inherit;
+                font-size: inherit;
+            }
         }
     }
 </style>

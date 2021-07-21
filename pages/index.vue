@@ -1,22 +1,25 @@
 <template>
-    <div :class="$style.home"
-         class="page">
-        <Game />
+    <div class="page home">
+        <NuxtLink to="/battle"
+                  class="home-btn">
+            Start battle
+        </NuxtLink>
+        <NuxtLink to="/summon"
+                  class="home-btn">
+            Summon
+        </NuxtLink>
     </div>
 </template>
 
 <script>
-    import Game from '../components/game';
-
     export default {
         name: 'HomePage',
         components: {
-            Game
         },
     };
 </script>
 
-<style lang="scss" module>
+<style lang="scss">
     .home {
         display: flex;
         flex-direction: column;
