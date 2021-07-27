@@ -72,7 +72,8 @@ export const actions = {
                 defence: code[2],
                 currentDefence: code[2],
                 initiative: code[3],
-                currentInitiative: code[3]
+                currentInitiative: code[3],
+                statuses: []
             };
             enemyCards.push(item);
         }
@@ -95,7 +96,8 @@ export const actions = {
                 defence: curPlayerTeam[i].defence,
                 currentDefence: curPlayerTeam[i].defence,
                 initiative: curPlayerTeam[i].initiative,
-                currentInitiative: curPlayerTeam[i].initiative
+                currentInitiative: curPlayerTeam[i].initiative,
+                statuses: []
             };
             playerBattleTeam.push(item);
         }
@@ -110,7 +112,24 @@ export const actions = {
     },
     setCurrentMove({commit}, move) {
         commit('setCurrentMove', move);
-    }
+    },
+    setPlayerHp({commit}, [playerCard, hp]) {
+        const id = playerCard.teamId - 101;
+        commit('setPlayerHp', [id, hp]);
+    },
+    setEnemyHp({commit}, [enemyCard, hp]) {
+        const id = enemyCard.teamId - 201;
+        commit('setEnemyHp', [id, hp]);
+    },
+    addPlayerStatus({commit}, [playerCard, status]) {
+        const id = playerCard.teamId - 101;
+        commit('addPlayerStatus', [id, status]);
+    },
+    addEnemyStatus({commit}, [enemyCard, status]) {
+        const id = enemyCard.teamId - 201;
+        console.log(enemyCard);
+        commit('addEnemyStatus', [id, status]);
+    },
 };
 
 export const mutations = {
@@ -137,6 +156,18 @@ export const mutations = {
     },
     setCurrentMove(state, move) {
         state.battle.currentMove = move;
+    },
+    setPlayerHp(state, [i, hp]) {
+        state.battle.playerTeam[i].currentHp = hp;
+    },
+    setEnemyHp(state, [i, hp]) {
+        state.battle.enemyTeam[i].currentHp = hp;
+    },
+    addPlayerStatus(state, [i, status]) {
+        state.battle.playerTeam[i].statuses.push(status);
+    },
+    addEnemyStatus(state, [i, status]) {
+        state.battle.enemyTeam[i].statuses.push(status);
     },
     setHint(state, [head, body]) {
         state.hint.head = head;

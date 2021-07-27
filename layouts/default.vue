@@ -1,7 +1,6 @@
 <template>
     <div>
         <TheHeader />
-        <Menu />
 
         <main :class="$style.main">
             <nuxt />

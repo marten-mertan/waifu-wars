@@ -1,12 +1,18 @@
 <template>
-    <div class="card"
+    <div class="game-card"
          @mouseenter="mouseEnter"
          @mouseleave="mouseLeave">
-        <div class="card-outer">
-            <div class="card-inner">
+        <div class="game-card-outer">
+            <div class="game-card-inner">
                 <img :src="card.image" 
                      alt="">
             </div>
+        </div>
+        <div class="game-card-hp">
+            {{ card.currentHp }}
+        </div>
+        <div class="game-card-atk">
+            {{ card.currentAttack }}
         </div>
     </div>
 </template>
@@ -36,6 +42,7 @@
                         currentHp: 0,
                         initiative: 0,
                         currentInitiative: 0,
+                        statuses: []
                     };
                 }
             }
@@ -57,13 +64,13 @@
 </script>
 
 <style lang='scss'>
-    .card {
+    .game-card {
         position: relative;
         display: flex;
         flex-direction: column;
         flex: 0 0 auto;
-        width: 290px;
-        height: 420px;
+        width: 145px;
+        height: 210px;
         cursor: pointer;
         box-shadow: rgba(#000, .333) 3px 4px 11px 3px;
 
@@ -73,7 +80,7 @@
         }
 
         &:hover {
-            .card-inner:before {
+            .game-card-inner:before {
                 transition: top .5s ease-in-out;
                 top: -100%;
             }
@@ -93,8 +100,8 @@
         &-inner {
             position: relative;
             display: flex;
-            width: 225px;
-            height: 350px;
+            width: 113px;
+            height: 176px;
             overflow: hidden;
 
             &:before {
@@ -115,6 +122,39 @@
                 user-select: none;
                 pointer-events: none;
             }
+        }
+
+        &-hp {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #50c878;
+            color: white;
+        }
+
+        &-atk {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: -10px;
+            left: -10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #d21f3c;
+            color: white;
+        }
+
+        &.dead {
+            opacity: .2;
+            transition: opacity .2s ease-in-out;
         }
     }
 </style>
